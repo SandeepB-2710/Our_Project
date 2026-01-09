@@ -1,0 +1,17 @@
+package com.tata.service;
+
+import java.util.List;
+import com.tata.payloads.CommentDto;
+
+public interface CommentService {
+
+    CommentDto saveComment(CommentDto commentDto);
+
+    CommentDto updateComment(CommentDto commentDto, Integer commentId);
+
+    String deleteComment(Integer commentId);
+
+    CommentDto getCommentById(Integer commentId);
+
+    List<CommentDto> getAllComments();
+}
