@@ -22,7 +22,7 @@ import com.tata.service.CategoryService;
 public class CategoryController {
 
 	@Autowired
-	private CategoryService categroCategoryService;
+	private CategoryService categoryService;
 	
 	@GetMapping("/ping")
 	public String apicheck() {
@@ -33,34 +33,34 @@ public class CategoryController {
 	@PostMapping("/saveCategory")
 	public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto categoryDto){
 		
-		CategoryDto saveCategoryDto = this.categroCategoryService.saveCategory(categoryDto);
+		CategoryDto saveCategoryDto = this.categoryService.saveCategory(categoryDto);
 		return new ResponseEntity<CategoryDto>(saveCategoryDto,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/allCategories")
 	public ResponseEntity<List<CategoryDto>> getCategory(){
 		
-		return new ResponseEntity<List<CategoryDto>>(this.categroCategoryService.getAllCategories(), HttpStatus.OK);
+		return new ResponseEntity<List<CategoryDto>>(this.categoryService.getAllCategories(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<CategoryDto> getCategory(@PathVariable("id") Integer categoryId){
 		
-		return new ResponseEntity<CategoryDto>(this.categroCategoryService.getCategoryById(categoryId), HttpStatus.OK);
+		return new ResponseEntity<CategoryDto>(this.categoryService.getCategoryById(categoryId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<CategoryDto> updateCategory(@PathVariable("id") Integer categoryId,@RequestBody CategoryDto categoryDto){
 		
-		CategoryDto updateCategoryDto = this.categroCategoryService.updateCategory(categoryDto, categoryId);
+		CategoryDto updateCategoryDto = this.categoryService.updateCategory(categoryDto, categoryId);
 		
 		return new ResponseEntity<CategoryDto>(updateCategoryDto, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteCategeory(@PathVariable("id") Integer categoryId){
+	public ResponseEntity<String> deleteCategory(@PathVariable("id") Integer categoryId){
 		
-	String msg=	this.categroCategoryService.deleteCategeory(categoryId);
+	String msg=	this.categoryService.deleteCategory(categoryId);
 		
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 	}
