@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tata.entity.Category;
+import com.tata.exception.ResourceNotfoundException;
 import com.tata.payloads.CategoryDto;
 import com.tata.repo.CategoryRepository;
 import com.tata.service.CategoryService;
@@ -40,22 +41,32 @@ public class CategoryServiceImpl implements CategoryService{
 	
 	@Override
 	public CategoryDto getCategoryById(Integer categoryId) {
-		Category category = this.categoryRepository.findById(categoryId).orElse(null);
+		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotfoundException("Category","CategoryId",categoryId));
 		return this.modeMapper.map(category, CategoryDto.class);
 	}
 
 	@Override
 	public CategoryDto updateCategory(CategoryDto categoryDto, Integer categoryId) {
 		
-		return null;
+		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotfoundException("Category","CategoryId",categoryId));
+		
+		category.setCategoryTitle(categoryDto.getCategoryTitle());
+		category.setCategoryTagLine(categoryDto.getCategoryTagLine());
+		category.setCategoryImage(categoryDto.getCategoryImage());
+		category.setCategoryDescription(categoryDto.getCategoryDescription());
+		
+		Category updatedCategory = this.categoryRepository.save(category);
+		
+		return this.modeMapper.map(updatedCategory, CategoryDto.class);
 	}
 
 	@Override
-	public String deleteCategeory(Integer categeoryId) {
-		Category category = this.categoryRepository.findById(categeoryId).orElse(null);
+	public String deleteCategory(Integer categoryId) {
+		
+		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotfoundException("Category","CategoryId",categoryId));
 		  categoryRepository.delete(category);
 		  
-		  return "Category with ID: "+categeoryId+" Deleted Successfully";
+		  return "Category with ID: "+categoryId+" Deleted Successfully";
 	}
 
 }
