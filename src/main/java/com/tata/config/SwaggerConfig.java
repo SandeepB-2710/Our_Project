@@ -18,10 +18,10 @@ public class SwaggerConfig {
 						.termsOfService("Terms and Condition of Service")
 						.contact(new Contact()
 								.name("TEAM 02")
-								.url("")
-								.email(""))
+								.url("https://github.com/SandeepB-2710/Our_Project/")
+								.email("mallikarjunjamadar777@gmail.com"))
 						.license(new License()
 								.name("TATA Strive, Bengaluru")
-								.url("http://tatastrive.com")));
+								.url("https://www.instagram.com/apna_bhidu_2341/?__pwa=1")));
 	}
 }
