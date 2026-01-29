@@ -1,11 +1,16 @@
 package com.tata.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,4 +40,15 @@ public class Post {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+    
+    @ManyToOne
+    @JoinColumn(name="Category_id")
+    private Category category;
+    
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+    
+    @OneToMany
+    private Set<Comment> comments = new HashSet<>();
 }
