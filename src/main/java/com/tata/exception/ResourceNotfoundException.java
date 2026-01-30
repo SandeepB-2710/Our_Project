@@ -18,6 +18,4 @@ public class ResourceNotFoundException extends RuntimeException{
 		this.attributeName = attributeName;
 		this.attributeValue = attributeValue;
 	}
-	
-	
 }
