@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tata.entity.Category;
-import com.tata.exception.ResourceNotfoundException;
+import com.tata.exception.ResourceNotFoundException;
 import com.tata.payloads.CategoryDto;
 import com.tata.repo.CategoryRepository;
 import com.tata.service.CategoryService;
@@ -41,14 +41,14 @@ public class CategoryServiceImpl implements CategoryService{
 	
 	@Override
 	public CategoryDto getCategoryById(Integer categoryId) {
-		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotfoundException("Category","CategoryId",categoryId));
+		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category","CategoryId",categoryId));
 		return this.modeMapper.map(category, CategoryDto.class);
 	}
 
 	@Override
 	public CategoryDto updateCategory(CategoryDto categoryDto, Integer categoryId) {
 		
-		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotfoundException("Category","CategoryId",categoryId));
+		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category","CategoryId",categoryId));
 		
 		category.setCategoryTitle(categoryDto.getCategoryTitle());
 		category.setCategoryTagLine(categoryDto.getCategoryTagLine());
@@ -63,7 +63,7 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public String deleteCategory(Integer categoryId) {
 		
-		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotfoundException("Category","CategoryId",categoryId));
+		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category","CategoryId",categoryId));
 		  categoryRepository.delete(category);
 		  
 		  return "Category with ID: "+categoryId+" Deleted Successfully";
