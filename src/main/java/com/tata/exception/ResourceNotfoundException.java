@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ResourceNotfoundException extends RuntimeException{
+public class ResourceNotFoundException extends RuntimeException{
 
 	String entityName;
 	String attributeName;
-	Integer attributeValue;
+	Object attributeValue;
 	
-	public ResourceNotfoundException(String entityName, String attributeName, Integer attributeValue) {
+	public ResourceNotFoundException(String entityName, String attributeName, Integer attributeValue) {
 		super(String.format("Oops..!! %s not found with %s: %d",entityName,attributeName,attributeValue));
 		
 		this.entityName = entityName;

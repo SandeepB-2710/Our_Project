@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tata.payloads.ApiResponse;
 import com.tata.payloads.CategoryDto;
 import com.tata.service.CategoryService;
 
@@ -57,12 +58,20 @@ public class CategoryController {
 		return new ResponseEntity<CategoryDto>(updateCategoryDto, HttpStatus.OK);
 	}
 	
+//	@DeleteMapping("/delete/{id}")
+//	public ResponseEntity<String> deleteCategory(@PathVariable("id") Integer categoryId){
+//		
+//	String msg=	this.categoryService.deleteCategory(categoryId);
+//		
+//		return new ResponseEntity<String>(msg, HttpStatus.OK);
+//	}
+	
+	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteCategory(@PathVariable("id") Integer categoryId){
+	public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer id){
+		this.categoryService.deleteCategory(id);
 		
-	String msg=	this.categoryService.deleteCategory(categoryId);
-		
-		return new ResponseEntity<String>(msg, HttpStatus.OK);
+		return new ResponseEntity<ApiResponse>(new ApiResponse("Category with id "+id+ " Deleted Successfully...!!",true), HttpStatus.OK);
 	}
 	
 }
