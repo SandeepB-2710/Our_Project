@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tata.entity.Comment;
+import com.tata.exception.ResourceNotFoundException;
 import com.tata.payloads.CommentDto;
 import com.tata.repo.CommentRepository;
 import com.tata.service.CommentService;
@@ -40,13 +41,13 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto getCommentById(Integer commentId) {
-        Comment comment = commentRepository.findById(commentId).orElse(null);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() ->new ResourceNotFoundException("Comment", "commentId", commentId));
         return modelMapper.map(comment, CommentDto.class);
     }
 
     @Override
     public CommentDto updateComment(CommentDto commentDto, Integer commentId) {
-        Comment comment = commentRepository.findById(commentId).orElse(null);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() ->new ResourceNotFoundException("Comment", "commentId", commentId));
 
         comment.setContent(commentDto.getContent());
 
@@ -56,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public String deleteComment(Integer commentId) {
-        Comment comment = commentRepository.findById(commentId).orElse(null);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() ->new ResourceNotFoundException("Comment", "commentId", commentId));
         commentRepository.delete(comment);
         return "Comment with ID: " + commentId + " deleted successfully";
     }

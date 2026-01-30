@@ -38,14 +38,14 @@ public class UserServiceimpl implements UserService{
 	
 	@Override
 	public UserDto getUserById(Integer userId) {
-		User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		return this.modelMapper.map(user, UserDto.class);
 	}
 	
 	
 	@Override
 	public UserDto updateUser(UserDto userDto,Integer userId) {
-		User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		user.setUserName(userDto.getUsername());
 		user.setEmail(userDto.getEmail());
 		user.setMobileNumber(userDto.getMobileNumber());
@@ -66,7 +66,7 @@ public class UserServiceimpl implements UserService{
 	
 	
 	public String deleteUser(Integer userId) {
-		User user = this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "id", userId));
+		User user = this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "userId", userId));
 		userRepository.delete(user);
 		return "User With ID: " +userId +" Deleted successfully";
 	}
