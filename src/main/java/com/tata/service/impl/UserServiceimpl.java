@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tata.entity.User;
+import com.tata.exception.ResourceNotFoundException;
 import com.tata.payloads.UserDto;
 import com.tata.repo.UserRepository;
 import com.tata.service.UserService;
@@ -37,7 +38,7 @@ public class UserServiceimpl implements UserService{
 	
 	@Override
 	public UserDto getUserById(Integer userId) {
-		User user = this.userRepository.findById(userId).orElse(null);
+		User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 		return this.modelMapper.map(user, UserDto.class);
 	}
 	
