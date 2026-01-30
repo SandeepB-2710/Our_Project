@@ -3,6 +3,7 @@ package com.tata.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +35,6 @@ public class Category {
 	
 	private String categoryDescription;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	private List<Post> posts = new ArrayList<>();
 }
