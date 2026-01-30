@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tata.entity.User;
+import com.tata.exception.ResourceNotFoundException;
 import com.tata.payloads.UserDto;
 import com.tata.repo.UserRepository;
 import com.tata.service.UserService;
@@ -37,19 +38,35 @@ public class UserServiceimpl implements UserService{
 	
 	@Override
 	public UserDto getUserById(Integer userId) {
-		User user = this.userRepository.findById(userId).orElse(null);
+		User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 		return this.modelMapper.map(user, UserDto.class);
 	}
 	
 	
 	@Override
-	public UserDto updateUser(UserDto userDto,Integer userID) {
-		return null;
+	public UserDto updateUser(UserDto userDto,Integer userId) {
+		User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		user.setUserName(userDto.getUsername());
+		user.setEmail(userDto.getEmail());
+		user.setMobileNumber(userDto.getMobileNumber());
+		user.setPassword(userDto.getPassword());
+		user.setBio(userDto.getBio());
+		user.setAbout(userDto.getAbout());
+		user.setProfileImage(userDto.getProfileImage());
+		user.setAddress(userDto.getAddress());
+		user.setCity(userDto.getCity());
+		user.setPincode(userDto.getPincode());
+		user.setRegisterdAt(userDto.getRegisterdAt());
+		user.setIsActive(userDto.getIsActive());
+		
+		User updatedUser = this.userRepository.save(user);
+		
+		return this.modelMapper.map(updatedUser, UserDto.class);
 	}
 	
 	
 	public String deleteUser(Integer userId) {
-		User user = this.userRepository.findById(userId).orElse(null);
+		User user = this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "id", userId));
 		userRepository.delete(user);
 		return "User With ID: " +userId +" Deleted successfully";
 	}

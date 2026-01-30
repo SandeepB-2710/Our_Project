@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tata.entity.Post;
+import com.tata.exception.ResourceNotFoundException;
 import com.tata.payloads.PostDto;
 import com.tata.repo.PostRepository;
 import com.tata.service.PostService;
@@ -42,12 +43,20 @@ public class PostServiceImpl implements PostService {
                 .collect(Collectors.toList());
     }
 
+//    @Override
+//    public PostDto getPostById(Integer postId) {
+//
+//        Post post = this.postRepository.findById(postId).orElse(null);
+//        return this.modelMapper.map(post, PostDto.class);
+//    }
+    
+    
     @Override
     public PostDto getPostById(Integer postId) {
-
-        Post post = this.postRepository.findById(postId).orElse(null);
+        Post post = this.postRepository.findById(postId).orElseThrow(() ->new ResourceNotFoundException("Post", "id", postId));
         return this.modelMapper.map(post, PostDto.class);
     }
+
 
     @Override
     public PostDto updatePost(PostDto postDto, Integer postId) {
@@ -62,6 +71,10 @@ public class PostServiceImpl implements PostService {
 
         Post updatedPost = this.postRepository.save(post);
         return this.modelMapper.map(updatedPost, PostDto.class);
+        
+        
+
+
     }
 
     @Override
