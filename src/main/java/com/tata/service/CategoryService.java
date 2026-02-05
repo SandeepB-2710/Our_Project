@@ -10,12 +10,12 @@ import com.tata.payloads.CategoryDto;
 public interface CategoryService {
 
 	CategoryDto saveCategory(CategoryDto categoryDto);
-	
+
 	CategoryDto updateCategory(CategoryDto categoryDto, Integer categoryId);
-	
-	public String deleteCategory(Integer categeoryId);
-	
+
+	public void deleteCategory(Integer categeoryId);
+
 	CategoryDto getCategoryById(Integer categoryId);
-	
+
 	List<CategoryDto> getAllCategories();
 }

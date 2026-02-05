@@ -13,7 +13,7 @@ public interface PostService {
 
     PostDto updatePost(PostDto postDto, Integer postId);
 
-    String deletePost(Integer postId);
+    void deletePost(Integer postId);
 
     PostDto getPostById(Integer postId);
 
