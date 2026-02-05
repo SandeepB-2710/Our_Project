@@ -1,5 +1,7 @@
 package com.tata.payloads;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ApiResponse {
 
+	private LocalDateTime timeStamp;
 	private String message;
-	private Boolean success;
+	private boolean success;
+	private Object errors;
 }

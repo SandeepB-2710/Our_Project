@@ -17,31 +17,29 @@ import com.tata.service.PostService;
 @Service
 public class PostServiceImpl implements PostService {
 
-    @Autowired
-    private PostRepository postRepository;
+	@Autowired
+	private PostRepository postRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+	@Autowired
+	private ModelMapper modelMapper;
 
-    @Override
-    public PostDto savePost(PostDto postDto) {
+	@Override
+	public PostDto savePost(PostDto postDto) {
 
-        Post post = this.modelMapper.map(postDto, Post.class);
-        post.setCreatedAt(LocalDateTime.now());
-        post.setUpdatedAt(LocalDateTime.now());
+		Post post = this.modelMapper.map(postDto, Post.class);
+		post.setCreatedAt(LocalDateTime.now());
+		post.setUpdatedAt(LocalDateTime.now());
 
-        Post savedPost = this.postRepository.save(post);
-        return this.modelMapper.map(savedPost, PostDto.class);
-    }
+		Post savedPost = this.postRepository.save(post);
+		return this.modelMapper.map(savedPost, PostDto.class);
+	}
 
-    @Override
-    public List<PostDto> getAllPosts() {
+	@Override
+	public List<PostDto> getAllPosts() {
 
-        List<Post> posts = this.postRepository.findAll();
-        return posts.stream()
-                .map(post -> this.modelMapper.map(post, PostDto.class))
-                .collect(Collectors.toList());
-    }
+		List<Post> posts = this.postRepository.findAll();
+		return posts.stream().map(post -> this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+	}
 
 //    @Override
 //    public PostDto getPostById(Integer postId) {
@@ -49,40 +47,37 @@ public class PostServiceImpl implements PostService {
 //        Post post = this.postRepository.findById(postId).orElse(null);
 //        return this.modelMapper.map(post, PostDto.class);
 //    }
-    
-    
-    @Override
-    public PostDto getPostById(Integer postId) {
-        Post post = this.postRepository.findById(postId).orElseThrow(() ->new ResourceNotFoundException("Post", "postId", postId));
-        return this.modelMapper.map(post, PostDto.class);
-    }
 
+	@Override
+	public PostDto getPostById(Integer postId) {
+		Post post = this.postRepository.findById(postId)
+				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId));
+		return this.modelMapper.map(post, PostDto.class);
+	}
 
-    @Override
-    public PostDto updatePost(PostDto postDto, Integer postId) {
+	@Override
+	public PostDto updatePost(PostDto postDto, Integer postId) {
 
-        Post post = this.postRepository.findById(postId).orElseThrow(() ->new ResourceNotFoundException("Post", "postId", postId));
+		Post post = this.postRepository.findById(postId)
+				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId));
 
-        post.setTitle(postDto.getTitle());
-        post.setContent(postDto.getContent());
-        post.setPostImage(postDto.getPostImage());
+		post.setTitle(postDto.getTitle());
+		post.setContent(postDto.getContent());
+		post.setPostImage(postDto.getPostImage());
 //        post.setPostVedio(postDto.getPostVedio());
-        post.setUpdatedAt(LocalDateTime.now());
+		post.setUpdatedAt(LocalDateTime.now());
 
-        Post updatedPost = this.postRepository.save(post);
-        return this.modelMapper.map(updatedPost, PostDto.class);
-        
-        
+		Post updatedPost = this.postRepository.save(post);
+		return this.modelMapper.map(updatedPost, PostDto.class);
 
+	}
 
-    }
+	@Override
+	public void deletePost(Integer postId) {
 
-    @Override
-    public String deletePost(Integer postId) {
+		Post post = this.postRepository.findById(postId)
+				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId));
+		postRepository.delete(post);
 
-        Post post = this.postRepository.findById(postId).orElseThrow(() ->new ResourceNotFoundException("Post", "postId", postId));
-        postRepository.delete(post);
-
-        return "Post with ID: " + postId + " Deleted Successfully";
-    }
+	}
 }

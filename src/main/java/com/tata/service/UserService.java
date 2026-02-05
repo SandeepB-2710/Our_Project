@@ -17,5 +17,5 @@ public interface UserService {
 
 	UserDto updateUser(UserDto userDto, Integer userID);
 	
-	public String deleteUser(Integer userId);
+	public void deleteUser(Integer userId);
 }

@@ -14,60 +14,60 @@ import com.tata.repo.CategoryRepository;
 import com.tata.service.CategoryService;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private ModelMapper modeMapper;
-	
-	
+
 	@Override
 	public CategoryDto saveCategory(CategoryDto categoryDto) {
-		
+
 		Category category = this.modeMapper.map(categoryDto, Category.class);
 		Category saveCategory = this.categoryRepository.save(category);
 		return this.modeMapper.map(saveCategory, CategoryDto.class);
-		
+
 	}
 
 	@Override
 	public List<CategoryDto> getAllCategories() {
 		List<Category> category = this.categoryRepository.findAll();
-		List<CategoryDto> categoryDtos =category.stream().map((cat)->this.modeMapper.map(cat,CategoryDto.class)).collect(Collectors.toList());
+		List<CategoryDto> categoryDtos = category.stream().map((cat) -> this.modeMapper.map(cat, CategoryDto.class))
+				.collect(Collectors.toList());
 		return categoryDtos;
 	}
-	
+
 	@Override
 	public CategoryDto getCategoryById(Integer categoryId) {
-		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category","CategoryId",categoryId));
+		Category category = this.categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "CategoryId", categoryId));
 		return this.modeMapper.map(category, CategoryDto.class);
 	}
 
 	@Override
 	public CategoryDto updateCategory(CategoryDto categoryDto, Integer categoryId) {
-		
-		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category","CategoryId",categoryId));
-		
+
+		Category category = this.categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "CategoryId", categoryId));
+
 		category.setCategoryTitle(categoryDto.getCategoryTitle());
 		category.setCategoryTagLine(categoryDto.getCategoryTagLine());
 		category.setCategoryImage(categoryDto.getCategoryImage());
 		category.setCategoryDescription(categoryDto.getCategoryDescription());
-		
+
 		Category updatedCategory = this.categoryRepository.save(category);
-		
+
 		return this.modeMapper.map(updatedCategory, CategoryDto.class);
 	}
 
 	@Override
-	public String deleteCategory(Integer categoryId) {
-		
-		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category","CategoryId",categoryId));
-		  categoryRepository.delete(category);
-		  
-		  return "Category with ID: "+categoryId+" Deleted Successfully";
+	public void deleteCategory(Integer categoryId) {
+
+		Category category = this.categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "CategoryId", categoryId));
+		categoryRepository.delete(category);
 	}
 
 }
-

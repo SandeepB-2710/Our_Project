@@ -9,7 +9,7 @@ public interface CommentService {
 
     CommentDto updateComment(CommentDto commentDto, Integer commentId);
 
-    String deleteComment(Integer commentId);
+	public void deleteComment(Integer commentId);
 
     CommentDto getCommentById(Integer commentId);
 
