@@ -36,7 +36,7 @@ public class Post {
 
     private String postImage;
 
-    private String postVedio;
+    private String postVideo;
 
     private LocalDateTime createdAt;
 
