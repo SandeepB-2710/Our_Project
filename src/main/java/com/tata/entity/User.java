@@ -17,13 +17,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Builder
-@Entity
 public class User {
 	
 	@Id
