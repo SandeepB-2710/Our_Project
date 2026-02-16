@@ -137,7 +137,7 @@ public class PostServiceImpl implements PostService {
 		User user = this.userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 
-		List<Post> posts = this.postRepository.findPostByUSer(user);
+		List<Post> posts = this.postRepository.findPostByUser(user);
 
 		return posts.stream().map(post -> this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
 	}

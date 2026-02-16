@@ -45,9 +45,9 @@ public class PostController {
 	@Value("${project.image}")
 	private String path;
 
-	@PostMapping("/user/{id}/category/{id}/savePost")
-	public ResponseEntity<PostDto> savePost(@Valid @RequestBody PostDto postDto, @PathVariable("id") Integer userId,
-			@PathVariable("id") Integer categoryId) {
+	@PostMapping("/user/{userid}/category/{categoryid}/savePost")
+	public ResponseEntity<PostDto> savePost(@Valid @RequestBody PostDto postDto, @PathVariable("userid") Integer userId,
+			@PathVariable("categoryid") Integer categoryId) {
 
 		PostDto savedPost = this.postService.savePost(postDto, userId, categoryId);
 		return new ResponseEntity<PostDto>(savedPost, HttpStatus.CREATED);
