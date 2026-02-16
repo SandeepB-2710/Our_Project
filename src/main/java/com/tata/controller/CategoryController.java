@@ -19,6 +19,8 @@ import com.tata.payloads.ApiResponse;
 import com.tata.payloads.CategoryDto;
 import com.tata.service.CategoryService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
@@ -27,7 +29,7 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@PostMapping("/saveCategory")
-	public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto categoryDto) {
+	public ResponseEntity<CategoryDto> saveCategory(@Valid @RequestBody CategoryDto categoryDto) {
 
 		CategoryDto saveCategoryDto = this.categoryService.saveCategory(categoryDto);
 		return new ResponseEntity<CategoryDto>(saveCategoryDto, HttpStatus.CREATED);
@@ -47,7 +49,7 @@ public class CategoryController {
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<CategoryDto> updateCategory(@PathVariable("id") Integer categoryId,
-			@RequestBody CategoryDto categoryDto) {
+			@Valid @RequestBody CategoryDto categoryDto) {
 
 		CategoryDto updateCategoryDto = this.categoryService.updateCategory(categoryDto, categoryId);
 

@@ -5,11 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.tata.payloads.PostDto;
+import com.tata.payloads.PostResponse;
 
 @Service
 public interface PostService {
 
-    PostDto savePost(PostDto postDto);
+    PostDto savePost(PostDto postDto, Integer userId, Integer categoryId);
 
     PostDto updatePost(PostDto postDto, Integer postId);
 
@@ -17,5 +18,11 @@ public interface PostService {
 
     PostDto getPostById(Integer postId);
 
-    List<PostDto> getAllPosts();
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+    
+    List<PostDto> getPostByCategory(Integer categoryId);
+    
+    List<PostDto> getPostByUser(Integer userId);
+    
+    List<PostDto> searchPost(String keyword);
 }

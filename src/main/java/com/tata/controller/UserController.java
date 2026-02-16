@@ -19,6 +19,8 @@ import com.tata.payloads.ApiResponse;
 import com.tata.payloads.UserDto;
 import com.tata.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -37,13 +39,13 @@ public class UserController {
 	}
 
 	@PostMapping("/insertUser")
-	public ResponseEntity<UserDto> saveUser(@RequestBody UserDto userDto) {
+	public ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto userDto) {
 		UserDto insertUserDto = this.userService.saveUser(userDto);
 		return new ResponseEntity<UserDto>(insertUserDto, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<UserDto> updateUser(@PathVariable("id") Integer userId, @RequestBody UserDto userDto) {
+	public ResponseEntity<UserDto> updateUser(@PathVariable("id") Integer userId,@Valid @RequestBody UserDto userDto) {
 		UserDto updateUser = this.userService.updateUser(userDto, userId);
 
 		return new ResponseEntity<UserDto>(updateUser, HttpStatus.OK);
