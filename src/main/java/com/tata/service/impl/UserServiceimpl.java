@@ -50,7 +50,7 @@ public class UserServiceimpl implements UserService {
 		user.setUserName(userDto.getUsername());
 		user.setEmail(userDto.getEmail());
 		user.setMobileNumber(userDto.getMobileNumber());
-		user.setPassword(userDto.getPassword());
+		//user.setPassword(userDto.getPassword());
 		user.setBio(userDto.getBio());
 		user.setAbout(userDto.getAbout());
 		user.setProfileImage(userDto.getProfileImage());
