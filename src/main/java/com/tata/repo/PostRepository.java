@@ -12,11 +12,11 @@ import com.tata.entity.User;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
 	
-	List<Post> findPostByUSer(User user);
+	List<Post> findPostByUser(User user);
 	
 	List<Post> findPostByCategory(Category category);
 
-	@Query("select p from post p where p.title like :key")
+	@Query("select p from Post p where p.title like :key")
 	List<Post> findPostByKeyword(@Param("key") String keyword);
 
 }

@@ -20,21 +20,21 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository categoryRepository;
 
 	@Autowired
-	private ModelMapper modeMapper;
+	private ModelMapper modelMapper;
 
 	@Override
 	public CategoryDto saveCategory(CategoryDto categoryDto) {
 
-		Category category = this.modeMapper.map(categoryDto, Category.class);
+		Category category = this.modelMapper.map(categoryDto, Category.class);
 		Category saveCategory = this.categoryRepository.save(category);
-		return this.modeMapper.map(saveCategory, CategoryDto.class);
+		return this.modelMapper.map(saveCategory, CategoryDto.class);
 
 	}
 
 	@Override
 	public List<CategoryDto> getAllCategories() {
 		List<Category> category = this.categoryRepository.findAll();
-		List<CategoryDto> categoryDtos = category.stream().map((cat) -> this.modeMapper.map(cat, CategoryDto.class))
+		List<CategoryDto> categoryDtos = category.stream().map((cat) -> this.modelMapper.map(cat, CategoryDto.class))
 				.collect(Collectors.toList());
 		return categoryDtos;
 	}
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public CategoryDto getCategoryById(Integer categoryId) {
 		Category category = this.categoryRepository.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "CategoryId", categoryId));
-		return this.modeMapper.map(category, CategoryDto.class);
+		return this.modelMapper.map(category, CategoryDto.class);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 		Category updatedCategory = this.categoryRepository.save(category);
 
-		return this.modeMapper.map(updatedCategory, CategoryDto.class);
+		return this.modelMapper.map(updatedCategory, CategoryDto.class);
 	}
 
 	@Override

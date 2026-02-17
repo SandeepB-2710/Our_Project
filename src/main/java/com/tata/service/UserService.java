@@ -2,13 +2,12 @@ package com.tata.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.tata.payloads.UserDto;
 
-@Service
 public interface UserService {
 
+	UserDto registerUser(UserDto userDto);
+	
 	UserDto saveUser(UserDto userDto);
 
 	List<UserDto> getAllUser();

@@ -2,12 +2,9 @@ package com.tata.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.tata.payloads.PostDto;
 import com.tata.payloads.PostResponse;
 
-@Service
 public interface PostService {
 
     PostDto savePost(PostDto postDto, Integer userId, Integer categoryId);
