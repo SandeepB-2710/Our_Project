@@ -51,7 +51,6 @@ public class UserDto {
 	@NotNull
 	private Integer pincode;
 	
-	@NotNull
 	private LocalDate registerdAt;
 	
 	private Boolean isActive;
