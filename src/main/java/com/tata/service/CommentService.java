@@ -5,7 +5,7 @@ import com.tata.payloads.CommentDto;
 
 public interface CommentService {
 
-    CommentDto saveComment(CommentDto commentDto);
+    CommentDto saveComment(CommentDto commentDto, Integer postId);
 
     CommentDto updateComment(CommentDto commentDto, Integer commentId);
 

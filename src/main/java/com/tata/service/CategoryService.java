@@ -2,11 +2,8 @@ package com.tata.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.tata.payloads.CategoryDto;
 
-@Service
 public interface CategoryService {
 
 	CategoryDto saveCategory(CategoryDto categoryDto);

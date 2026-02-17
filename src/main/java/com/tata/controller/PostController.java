@@ -1,7 +1,10 @@
 package com.tata.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,9 +48,9 @@ public class PostController {
 	@Value("${project.image}")
 	private String path;
 
-	@PostMapping("/user/{userid}/category/{categoryid}/savePost")
-	public ResponseEntity<PostDto> savePost(@Valid @RequestBody PostDto postDto, @PathVariable("userid") Integer userId,
-			@PathVariable("categoryid") Integer categoryId) {
+	@PostMapping("/user/{userId}/category/{categoryId}/savePost")
+	public ResponseEntity<PostDto> savePost(@Valid @RequestBody PostDto postDto, @PathVariable Integer userId,
+			@PathVariable Integer categoryId) {
 
 		PostDto savedPost = this.postService.savePost(postDto, userId, categoryId);
 		return new ResponseEntity<PostDto>(savedPost, HttpStatus.CREATED);
@@ -58,7 +61,7 @@ public class PostController {
 			@RequestParam (value = "pageNumber", defaultValue = AppConstant.PAGE_NUMBER, required = false) Integer pageNumber, 
 			@RequestParam (value = "pageSize", defaultValue = AppConstant.PAGE_SIZE, required = false) Integer pageSize,
 			@RequestParam (value = "sortBy", defaultValue = AppConstant.SORT_BY, required = false) String sortBy,
-			@RequestParam (value = "sortDir", defaultValue = AppConstant.S0RT_DIR, required = false) String sortDir
+			@RequestParam (value = "sortDir", defaultValue = AppConstant.SORT_DIR, required = false) String sortDir
 			) {
 
 		return new ResponseEntity<PostResponse>(this.postService.getAllPosts(pageNumber, pageSize, sortBy,sortDir), HttpStatus.OK);
@@ -130,18 +133,43 @@ public class PostController {
 		}
 
 		// serves file 
-		@GetMapping(value = "/post/image/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
-		public void downloadImage(
-		@PathVariable("imageName") String imageName,
-		HttpServletResponse response
-
-		) throws IOException {
-			
-		InputStream resource = this.fileService.getResource(path, imageName);
-		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-		StreamUtils.copy(resource, response.getOutputStream());
+//		@GetMapping(value = "/post/image/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
+//		public void downloadImage(
+//		@PathVariable("imageName") String imageName,
+//		HttpServletResponse response
+//
+//		) throws IOException {
+//			
+//		InputStream resource = this.fileService.getResource(path, imageName);
+//		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+//		StreamUtils.copy(resource, response.getOutputStream());
+//		
+//		}
 		
+		@GetMapping("/post/image/{imageName}")
+		public void downloadImage(
+		        @PathVariable("imageName") String imageName,
+		        HttpServletResponse response
+		) throws IOException {
+
+		    // Get file as InputStream
+		    InputStream resource = this.fileService.getResource(path, imageName);
+
+		    // Detect file type dynamically
+		    String fullPath = path + File.separator + imageName;
+		    String contentType = Files.probeContentType(Paths.get(fullPath));
+
+		    // If unable to detect, fallback
+		    if (contentType == null) {
+		        contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+		    }
+
+		    response.setContentType(contentType);
+
+		    // Copy file to response output
+		    StreamUtils.copy(resource, response.getOutputStream());
 		}
+
 
 	
 
