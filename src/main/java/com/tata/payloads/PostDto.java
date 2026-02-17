@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.tata.entity.User;
-
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +28,6 @@ public class PostDto {
 	private LocalDateTime updatedAt;
 
 	private CategoryDto category;
-	private User user;
-	private Set<CommentDto> comment = new HashSet<>();
+	private UserDto user;
+	private Set<CommentDto> comments = new HashSet<>();
 }

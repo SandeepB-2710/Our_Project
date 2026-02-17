@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 
 		Category category = this.categoryRepository.findById(categoryId)
-				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", categoryId));
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "CategoryId", categoryId));
 
 		Post post = this.modelMapper.map(postDto, Post.class);
 
@@ -81,7 +81,7 @@ public class PostServiceImpl implements PostService {
 		postResponse.setPageNumber(pagePost.getNumber());
 		postResponse.setPageSize(pagePost.getSize());
 		postResponse.setTotalElements(pagePost.getTotalElements());
-		postResponse.setTatalPages(pagePost.getTotalPages());
+		postResponse.setTotalPages(pagePost.getTotalPages());
 		postResponse.setLastPage(pagePost.isLast());
 		
 		return postResponse;
@@ -124,7 +124,7 @@ public class PostServiceImpl implements PostService {
 	public List<PostDto> getPostByCategory(Integer categoryId) {
 
 		Category category = this.categoryRepository.findById(categoryId)
-				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", categoryId));
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "CategoryId", categoryId));
 
 		List<Post> posts = this.postRepository.findPostByCategory(category);
 
@@ -147,6 +147,6 @@ public class PostServiceImpl implements PostService {
 
 		List<Post> posts=this.postRepository.findPostByKeyword("%"+keyword+"%");
 		
-		return posts.stream().map(post-> this.modelMapper.map(posts, PostDto.class)).collect(Collectors.toList());
+		return posts.stream().map(post-> this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
 	}
 }

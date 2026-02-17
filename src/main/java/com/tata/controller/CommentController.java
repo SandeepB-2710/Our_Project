@@ -12,6 +12,8 @@ import com.tata.payloads.ApiResponse;
 import com.tata.payloads.CommentDto;
 import com.tata.service.CommentService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
@@ -19,9 +21,11 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
-	@PostMapping("/saveComment")
-	public ResponseEntity<CommentDto> saveComment(@RequestBody CommentDto commentDto) {
-		CommentDto savedComment = commentService.saveComment(commentDto);
+	@PostMapping("/post/{postId}/saveComment")
+	public ResponseEntity<CommentDto> saveComment(@Valid @RequestBody CommentDto commentDto, @PathVariable Integer postId) {
+		
+		CommentDto savedComment = commentService.saveComment(commentDto,postId);
+		
 		return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
 	}
 
