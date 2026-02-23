@@ -13,6 +13,8 @@ public interface CategoryService {
 	public void deleteCategory(Integer categeoryId);
 
 	CategoryDto getCategoryById(Integer categoryId);
+	
+	CategoryDto getCategoryByTitle(String categoryTitle);
 
 	List<CategoryDto> getAllCategories();
 }

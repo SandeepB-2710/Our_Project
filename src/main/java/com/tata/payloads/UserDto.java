@@ -30,7 +30,7 @@ public class UserDto {
 	private Long mobileNumber;
 	
 	@NotEmpty
-	@Size(min=5, max=10, message="Password must be less than 10 and more than 5 charecter")
+	@Size(min=5, max=16, message="Password must be less than 16   and more than 5 charecter")
 	private String password;
 	
 	@NotEmpty
