@@ -70,4 +70,12 @@ public class CategoryServiceImpl implements CategoryService {
 		categoryRepository.delete(category);
 	}
 
+	@Override
+	public CategoryDto getCategoryByTitle(String categoryTitle) {
+		Category category = this.categoryRepository
+				.findByCategoryTitle(categoryTitle).orElseThrow(()-> new RuntimeException(categoryTitle+" This category not found.."));
+		
+		  return this.modelMapper.map(category, CategoryDto.class);
+	}
+	
 }

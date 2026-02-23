@@ -64,5 +64,21 @@ public class CategoryController {
 				new ApiResponse(LocalDateTime.now(),"Category with categoryId " + categoryId + " Deleted Successfully...!!", true, null),
 				HttpStatus.OK);
 	}
+	
+	@GetMapping("/title/{category}")
+	public ResponseEntity<CategoryDto> getCategoryByName(@PathVariable("category") String categoryTitle) {
+
+		return new ResponseEntity<CategoryDto>(this.categoryService.getCategoryByTitle(categoryTitle), HttpStatus.OK);
+	}
+	
+//	@GetMapping("/title/{categoryTitle}")
+//	public ResponseEntity<CategoryDto> getCategoryByTitle(
+//	        @PathVariable String categoryTitle) {
+//
+//	    CategoryDto categoryDto = this.categoryService
+//	            .getCategoryByTitle(categoryTitle);
+//
+//	    return ResponseEntity.ok(categoryDto);
+//	}
 
 }
