@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public CategoryDto getCategoryByTitle(String categoryTitle) {
 		Category category = this.categoryRepository
-				.findByCategoryTitle(categoryTitle).orElseThrow(()-> new RuntimeException(categoryTitle+" This category not found.."));
+				.findByCategoryTitle(categoryTitle).orElseThrow(()-> new ResourceNotFoundException("Category", "categoryTitle", categoryTitle));
 		
 		  return this.modelMapper.map(category, CategoryDto.class);
 	}

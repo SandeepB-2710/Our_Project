@@ -1,6 +1,7 @@
 package com.tata.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -51,6 +52,9 @@ public class User implements UserDetails {
 	private Integer pincode;
 	private LocalDate registeredAt;
 	private Boolean isActive;
+	
+	private String resetToken;
+	private LocalDateTime tokenExpiry;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Post> posts = new ArrayList<>();

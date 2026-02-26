@@ -17,4 +17,10 @@ public interface UserService {
 	UserDto updateUser(UserDto userDto, Integer userID);
 	
 	public void deleteUser(Integer userId);
+	
+	void generateResetToken(String email);
+	
+	void resetPassword(String token, String newPassword);
+	
+	void changePassword(String email, String oldPassword, String newPassword);
 }

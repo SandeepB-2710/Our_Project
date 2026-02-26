@@ -16,44 +16,41 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto {
-	
-	private Integer userId;
-	
-	@NotEmpty
-	@Size(min=4, max=15, message="UserName must be more than 3 charecter and less than 16")
-	private String userName;
-	
-	@Email(message="Invalid emial address..")
-	private String email;
-	
-	@NotNull
-	private Long mobileNumber;
-	
-	@NotEmpty
-	@Size(min=5, max=16, message="Password must be less than 16   and more than 5 charecter")
-	private String password;
-	
-	@NotEmpty
-	private String bio;
-	
-	@NotEmpty
-	private String about;
-	
-	@NotEmpty
-	private String profileImage;
-	
-	@NotEmpty
-	private String address;
-	
-	@NotEmpty
-	private String city;
-	
-	@NotNull
-	private Integer pincode;
-	
-	private LocalDate registerdAt;
-	
-	private Boolean isActive;
-	
-	private Set<RoleDto> roles = new HashSet<>();
+
+    private Integer userId;
+
+    // REQUIRED FOR SIGNUP
+    
+    @NotEmpty
+    @Size(min = 4, max = 15, message = "UserName must be between 4 and 15 characters")
+    private String userName;
+
+    @Email(message = "Invalid email address")
+    private String email;
+
+    @NotNull(message = "Mobile number is required")
+    private Long mobileNumber;
+
+    @NotEmpty
+    @Size(min = 5, max = 16, message = "Password must be between 5 and 16 characters")
+    private String password;
+
+    // OPTIONAL PROFILE FIELDS (Can be updated later)
+    private String bio;
+
+    private String about;
+
+    private String profileImage;
+
+    private String address;
+
+    private String city;
+
+    private Integer pincode;
+
+    private LocalDate registerdAt;
+
+    private Boolean isActive;
+
+    private Set<RoleDto> roles = new HashSet<>();
 }

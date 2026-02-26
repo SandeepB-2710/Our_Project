@@ -1,5 +1,6 @@
 package com.tata.controller;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tata.payloads.ApiResponse;
@@ -57,5 +59,24 @@ public class UserController {
 
 		return new ResponseEntity<ApiResponse>(
 				new ApiResponse(LocalDateTime.now(),"User with userId " + userId + " deleted successfully..!!", true, null), HttpStatus.OK);
+	}
+	
+	@PostMapping("/reset-password")
+	public ResponseEntity<String> resetPassword(
+	        @RequestParam String token,
+	        @RequestParam String newPassword) {
+
+	    userService.resetPassword(token, newPassword);
+	    return ResponseEntity.ok("Password reset successfully.");
+	}
+	
+	@PostMapping("/change-password")
+	public ResponseEntity<String> changePassword(
+	        @RequestParam String oldPassword,
+	        @RequestParam String newPassword,
+	        Principal principal) {
+
+	    userService.changePassword(principal.getName(), oldPassword, newPassword);
+	    return ResponseEntity.ok("Password changed successfully.");
 	}
 }

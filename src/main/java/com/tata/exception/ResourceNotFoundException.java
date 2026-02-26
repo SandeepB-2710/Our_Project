@@ -11,7 +11,7 @@ public class ResourceNotFoundException extends RuntimeException{
 	String attributeName;
 	Object attributeValue;
 	
-	public ResourceNotFoundException(String entityName, String attributeName,Integer attributeValue) {
+	public ResourceNotFoundException(String entityName, String attributeName,Object attributeValue) {
 		super(String.format("Oops..!! %s not found with %s: %d", entityName, attributeName, attributeValue));
 		
 		this.entityName=entityName;
