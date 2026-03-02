@@ -81,15 +81,15 @@ Docker volume used for persistence
 
 **🗂 Project Structure**
 Our_Project/
-│
-├── config/              (Security, JWT, CORS)
-├── controller/          (REST Controllers)
-├── dto/                 (Data Transfer Objects)
-├── entity/              (JPA Entities)
-├── exception/           (Custom Exceptions)
-├── repository/          (Spring Data JPA)
-├── service/             (Business Logic)
-└── uploads/             (Profile Images Storage)
+-│
+-├── config/              (Security, JWT, CORS)
+-├── controller/          (REST Controllers)
+-├── dto/                 (Data Transfer Objects)
+-├── entity/              (JPA Entities)
+-├── exception/           (Custom Exceptions)
+-├── repository/          (Spring Data JPA)
+-├── service/             (Business Logic)
+-└── uploads/             (Profile Images Storage)
 
 ---
 
@@ -101,9 +101,10 @@ cd Our_Project
 
 Update application.properties:
 
-spring.datasource.url=jdbc:mysql://localhost:3306/infocircle
-spring.datasource.username=root
-spring.datasource.password=your_password
+-spring.datasource.url=jdbc:mysql://localhost:3306/infocircle
+-spring.datasource.username=root
+-spring.datasource.password=your_password
+
 3️⃣ Run Application (Local)
 mvn spring-boot:run
 
